@@ -1,0 +1,159 @@
+.visualAnalysis {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+}
+
+.webcam {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scaleX(-1); /* Mirror effect */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(-1); /* Mirror effect */
+}
+
+.ageDisplay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: glow 2s ease-in-out infinite;
+}
+
+.stressLevel {
+  font-size: 0.9em;
+  color: #00ff88;
+}
+
+.digitalTwin {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(135deg, #000428, #004e92);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 78, 146, 0.3);
+}
+
+.digitalTwinOverlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+}
+
+.healthStatus {
+  text-align: center;
+}
+
+.healthStatus h3 {
+  margin: 0 0 10px 0;
+  color: #00ff88;
+  font-size: 1.2em;
+}
+
+.healthStatus p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.quantumPredictions {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  margin: 20px 0;
+}
+
+.biorhythm {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.geneticOptimization {
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  margin: 20px 0;
+}
+
+.mindBodySync {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.syncScore {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 20px;
+  background: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+/* Futuristic animations */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .digitalTwin {
+    height: 300px;
+  }
+  
+  .ageDisplay {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+  
+  .digitalTwinOverlay {
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+  }
+}

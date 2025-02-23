@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 import styles from './AgeCalculator.module.css';
+import { VisualAgeAnalysis, DigitalTwin } from '../modules/FuturisticFeatures';
 
 ChartJS.register(
   RadialLinearScale,
@@ -163,243 +164,273 @@ export default function AgeCalculator() {
   };
 
   return (
-    <div className={styles.calculatorContainer}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGrid}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="birthDate">Date of Birth:</label>
-            <input
-              type="date"
-              id="birthDate"
-              name="birthDate"
-              value={formData.birthDate}
-              onChange={handleInputChange}
-              required
-              className={styles.input}
-            />
-          </div>
+    <div className={styles.container}>
+      <h1>Project FuturAge</h1>
+      <div className={styles.mainContent}>
+        <div className={styles.inputSection}>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.formGrid}>
+              <div className={styles.inputGroup}>
+                <label htmlFor="birthDate">Date of Birth:</label>
+                <input
+                  type="date"
+                  id="birthDate"
+                  name="birthDate"
+                  value={formData.birthDate}
+                  onChange={handleInputChange}
+                  required
+                  className={styles.input}
+                />
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="weight">Weight (kg):</label>
-            <input
-              type="number"
-              id="weight"
-              name="weight"
-              value={formData.weight}
-              onChange={handleInputChange}
-              min="30"
-              max="200"
-              className={styles.input}
-            />
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="weight">Weight (kg):</label>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  value={formData.weight}
+                  onChange={handleInputChange}
+                  min="30"
+                  max="200"
+                  className={styles.input}
+                />
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="height">Height (cm):</label>
-            <input
-              type="number"
-              id="height"
-              name="height"
-              value={formData.height}
-              onChange={handleInputChange}
-              min="100"
-              max="250"
-              className={styles.input}
-            />
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="height">Height (cm):</label>
+                <input
+                  type="number"
+                  id="height"
+                  name="height"
+                  value={formData.height}
+                  onChange={handleInputChange}
+                  min="100"
+                  max="250"
+                  className={styles.input}
+                />
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="exercise_frequency">Exercise (days/week):</label>
-            <select
-              id="exercise_frequency"
-              name="exercise_frequency"
-              value={formData.exercise_frequency}
-              onChange={handleInputChange}
-              className={styles.input}
-            >
-              <option value="0">Sedentary</option>
-              <option value="1">1-2 days</option>
-              <option value="3">3-4 days</option>
-              <option value="5">5+ days</option>
-            </select>
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="exercise_frequency">Exercise (days/week):</label>
+                <select
+                  id="exercise_frequency"
+                  name="exercise_frequency"
+                  value={formData.exercise_frequency}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                >
+                  <option value="0">Sedentary</option>
+                  <option value="1">1-2 days</option>
+                  <option value="3">3-4 days</option>
+                  <option value="5">5+ days</option>
+                </select>
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="sleep_hours">Sleep (hours/day):</label>
-            <input
-              type="number"
-              id="sleep_hours"
-              name="sleep_hours"
-              value={formData.sleep_hours}
-              onChange={handleInputChange}
-              min="4"
-              max="12"
-              className={styles.input}
-            />
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="sleep_hours">Sleep (hours/day):</label>
+                <input
+                  type="number"
+                  id="sleep_hours"
+                  name="sleep_hours"
+                  value={formData.sleep_hours}
+                  onChange={handleInputChange}
+                  min="4"
+                  max="12"
+                  className={styles.input}
+                />
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="stress_level">Stress Level (1-10):</label>
-            <input
-              type="range"
-              id="stress_level"
-              name="stress_level"
-              value={formData.stress_level}
-              onChange={handleInputChange}
-              min="1"
-              max="10"
-              className={styles.slider}
-            />
-            <span className={styles.sliderValue}>{formData.stress_level}</span>
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="stress_level">Stress Level (1-10):</label>
+                <input
+                  type="range"
+                  id="stress_level"
+                  name="stress_level"
+                  value={formData.stress_level}
+                  onChange={handleInputChange}
+                  min="1"
+                  max="10"
+                  className={styles.slider}
+                />
+                <span className={styles.sliderValue}>{formData.stress_level}</span>
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="diet_quality">Diet Quality (1-5):</label>
-            <select
-              id="diet_quality"
-              name="diet_quality"
-              value={formData.diet_quality}
-              onChange={handleInputChange}
-              className={styles.input}
-            >
-              <option value="1">Poor</option>
-              <option value="2">Fair</option>
-              <option value="3">Good</option>
-              <option value="4">Very Good</option>
-              <option value="5">Excellent</option>
-            </select>
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="diet_quality">Diet Quality (1-5):</label>
+                <select
+                  id="diet_quality"
+                  name="diet_quality"
+                  value={formData.diet_quality}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                >
+                  <option value="1">Poor</option>
+                  <option value="2">Fair</option>
+                  <option value="3">Good</option>
+                  <option value="4">Very Good</option>
+                  <option value="5">Excellent</option>
+                </select>
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="mental_activity">Mental Activity:</label>
-            <select
-              id="mental_activity"
-              name="mental_activity"
-              value={formData.mental_activity}
-              onChange={handleInputChange}
-              className={styles.input}
-            >
-              <option value="1">Low</option>
-              <option value="3">Medium</option>
-              <option value="5">High</option>
-            </select>
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="mental_activity">Mental Activity:</label>
+                <select
+                  id="mental_activity"
+                  name="mental_activity"
+                  value={formData.mental_activity}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                >
+                  <option value="1">Low</option>
+                  <option value="3">Medium</option>
+                  <option value="5">High</option>
+                </select>
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                name="smoking"
-                checked={formData.smoking}
-                onChange={handleInputChange}
-                className={styles.checkbox}
-              />
-              Smoker
-            </label>
-          </div>
+              <div className={styles.inputGroup}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    name="smoking"
+                    checked={formData.smoking}
+                    onChange={handleInputChange}
+                    className={styles.checkbox}
+                  />
+                  Smoker
+                </label>
+              </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="alcohol_frequency">Alcohol Consumption:</label>
-            <select
-              id="alcohol_frequency"
-              name="alcohol_frequency"
-              value={formData.alcohol_frequency}
-              onChange={handleInputChange}
-              className={styles.input}
-            >
-              <option value="0">Never</option>
-              <option value="1">Occasionally</option>
-              <option value="2">Moderately</option>
-              <option value="3">Frequently</option>
-            </select>
-          </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="alcohol_frequency">Alcohol Consumption:</label>
+                <select
+                  id="alcohol_frequency"
+                  name="alcohol_frequency"
+                  value={formData.alcohol_frequency}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                >
+                  <option value="0">Never</option>
+                  <option value="1">Occasionally</option>
+                  <option value="2">Moderately</option>
+                  <option value="3">Frequently</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" disabled={loading} className={styles.button}>
+              {loading ? 'Calculating...' : 'Calculate Age'}
+            </button>
+          </form>
         </div>
 
-        <button type="submit" disabled={loading} className={styles.button}>
-          {loading ? 'Calculating...' : 'Calculate Age'}
-        </button>
-      </form>
+        <div className={styles.visualAnalysisSection}>
+          <h2>AI Visual Analysis</h2>
+          <VisualAgeAnalysis />
+        </div>
 
-      {error && <div className={styles.error}>{error}</div>}
-      
-      {results && !error && (
-        <div className={styles.results}>
-          <div className={styles.resultsGrid}>
-            <div className={styles.ageCard}>
-              <h3>Chronological Age</h3>
-              <p>{results.chronological_age} years</p>
-            </div>
-            <div className={styles.ageCard}>
-              <h3>Biological Age</h3>
-              <p>{results.biological_age} years</p>
-              <span className={styles.status}>Health: {results.health_status}</span>
-            </div>
-            <div className={styles.ageCard}>
-              <h3>Cognitive Age</h3>
-              <p>{results.cognitive_age} years</p>
-            </div>
-            <div className={styles.healthScoreCard}>
-              <h3>Health Score</h3>
-              <div className={styles.scoreCircle} style={{
-                background: `conic-gradient(#3498db ${results.health_score}%, #eee ${results.health_score}% 100%)`
-              }}>
-                <span>{Math.round(results.health_score)}%</span>
-              </div>
-            </div>
-          </div>
-
-          {results.metrics && (
-            <div className={styles.metricsSection}>
-              <h3>Health Metrics</h3>
-              <div className={styles.radarChart}>
-                <Radar data={getRadarData(results)} options={{
-                  scales: {
-                    r: {
-                      min: 0,
-                      max: 100,
-                      beginAtZero: true
-                    }
-                  }
-                }} />
-              </div>
-            </div>
-          )}
-
-          {results.age_prediction && (
-            <div className={styles.predictionSection}>
-              <h3>5-Year Prediction</h3>
-              <div className={styles.predictionGrid}>
-                <div className={styles.predictionCard}>
-                  <h4>Projected Age</h4>
-                  <p>{results.age_prediction.age_in_5_years} years</p>
+        {error && <div className={styles.error}>{error}</div>}
+        
+        {results && !error && (
+          <>
+            <div className={styles.results}>
+              <div className={styles.resultsGrid}>
+                <div className={styles.ageCard}>
+                  <h3>Chronological Age</h3>
+                  <p>{results.chronological_age} years</p>
                 </div>
-                <div className={styles.predictionCard}>
-                  <h4>Projected Biological Age</h4>
-                  <p>{Math.round(results.age_prediction.biological_age_in_5_years)} years</p>
+                <div className={styles.ageCard}>
+                  <h3>Biological Age</h3>
+                  <p>{results.biological_age} years</p>
+                  <span className={styles.status}>Health: {results.health_status}</span>
                 </div>
-                <div className={styles.predictionCard}>
-                  <h4>Potential Improvement</h4>
-                  <p>{results.age_prediction.potential_improvement} years younger</p>
+                <div className={styles.ageCard}>
+                  <h3>Cognitive Age</h3>
+                  <p>{results.cognitive_age} years</p>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {results.recommendations && results.recommendations.length > 0 && (
-            <div className={styles.recommendationsSection}>
-              <h3>Personalized Recommendations</h3>
-              <div className={styles.recommendationsList}>
-                {results.recommendations.map((rec, index) => (
-                  <div key={index} className={`${styles.recommendationCard} ${styles[`priority${rec.impact}`]}`}>
-                    <h4>{rec.category}</h4>
-                    <p>{rec.recommendation}</p>
-                    <span className={styles.impact}>Priority: {rec.impact}</span>
+                <div className={styles.healthScoreCard}>
+                  <h3>Health Score</h3>
+                  <div className={styles.scoreCircle} style={{
+                    background: `conic-gradient(#3498db ${results.health_score}%, #eee ${results.health_score}% 100%)`
+                  }}>
+                    <span>{Math.round(results.health_score)}%</span>
                   </div>
-                ))}
+                </div>
               </div>
+
+              {results.metrics && (
+                <div className={styles.metricsSection}>
+                  <h3>Health Metrics</h3>
+                  <div className={styles.radarChart}>
+                    <Radar data={getRadarData(results)} options={{
+                      scales: {
+                        r: {
+                          min: 0,
+                          max: 100,
+                          beginAtZero: true
+                        }
+                      }
+                    }} />
+                  </div>
+                </div>
+              )}
+
+              {results.age_prediction && (
+                <div className={styles.predictionSection}>
+                  <h3>5-Year Prediction</h3>
+                  <div className={styles.predictionGrid}>
+                    <div className={styles.predictionCard}>
+                      <h4>Projected Age</h4>
+                      <p>{results.age_prediction.age_in_5_years} years</p>
+                    </div>
+                    <div className={styles.predictionCard}>
+                      <h4>Projected Biological Age</h4>
+                      <p>{Math.round(results.age_prediction.biological_age_in_5_years)} years</p>
+                    </div>
+                    <div className={styles.predictionCard}>
+                      <h4>Potential Improvement</h4>
+                      <p>{results.age_prediction.potential_improvement} years younger</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {results.recommendations && results.recommendations.length > 0 && (
+                <div className={styles.recommendationsSection}>
+                  <h3>Personalized Recommendations</h3>
+                  <div className={styles.recommendationsList}>
+                    {results.recommendations.map((rec, index) => (
+                      <div key={index} className={`${styles.recommendationCard} ${styles[`priority${rec.impact}`]}`}>
+                        <h4>{rec.category}</h4>
+                        <p>{rec.recommendation}</p>
+                        <span className={styles.impact}>Priority: {rec.impact}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+
+            <div className={styles.digitalTwinSection}>
+              <h2>Your Digital Twin</h2>
+              <DigitalTwin 
+                healthMetrics={{
+                  bmi: results.metrics.bmi,
+                  healthScore: results.health_score,
+                  sleepQuality: results.metrics.sleep_quality,
+                  stressLevel: results.metrics.stress_impact,
+                  dietQuality: results.metrics.diet_quality
+                }}
+                ageData={{
+                  chronological: results.chronological_age,
+                  biological: results.biological_age,
+                  predicted: results.age_prediction?.age_in_5_years
+                }}
+              />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

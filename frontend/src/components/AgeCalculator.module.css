@@ -288,6 +288,34 @@
   font-family: 'Inter', sans-serif;
 }
 
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ageMetrics {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.futuristicFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.advancedInsights {
+  margin-top: 2rem;
+  width: 100%;
+}
+
 .mainContent {
   display: grid;
   grid-template-columns: 1fr;

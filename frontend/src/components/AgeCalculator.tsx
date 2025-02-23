@@ -11,6 +11,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import styles from './AgeCalculator.module.css';
 import { VisualAgeAnalysis, DigitalTwin } from '../modules/FuturisticFeatures';
+import AdvancedInsights from '../modules/AdvancedInsights';
 
 ChartJS.register(
   RadialLinearScale,
@@ -331,9 +332,10 @@ export default function AgeCalculator() {
 
         {error && <div className={styles.error}>{error}</div>}
         
-        {results && !error && (
-          <>
-            <div className={styles.results}>
+        {results && (
+          <div className={styles.resultsContainer}>
+            <div className={styles.ageMetrics}>
+              <h2>Age Analysis Results</h2>
               <div className={styles.resultsGrid}>
                 <div className={styles.ageCard}>
                   <h3>Chronological Age</h3>
@@ -411,8 +413,8 @@ export default function AgeCalculator() {
               )}
             </div>
 
-            <div className={styles.digitalTwinSection}>
-              <h2>Your Digital Twin</h2>
+            <div className={styles.futuristicFeatures}>
+              <VisualAgeAnalysis />
               <DigitalTwin 
                 healthMetrics={{
                   bmi: results.metrics.bmi,
@@ -428,7 +430,26 @@ export default function AgeCalculator() {
                 }}
               />
             </div>
-          </>
+
+            <div className={styles.advancedInsights}>
+              <AdvancedInsights 
+                healthData={{
+                  ...results,
+                  longevity_analysis: {
+                    genetic_risk: 1 - (results.health_score / 100),
+                    lifestyle_quality: results.metrics.exercise_level === 'High' ? 0.9 : 
+                                     results.metrics.exercise_level === 'Medium' ? 0.6 : 0.3,
+                    environmental_impact: results.metrics.stress_impact === 'Low' ? 0.8 : 
+                                        results.metrics.stress_impact === 'Medium' ? 0.5 : 0.2,
+                    stress_resilience: (10 - results.stress_level) / 10
+                  },
+                  ai_insights: results.recommendations.map(rec => 
+                    `${rec.category}: ${rec.recommendation} (Impact: ${rec.impact})`
+                  ).join('\n')
+                }}
+              />
+            </div>
+          </div>
         )}
       </div>
     </div>

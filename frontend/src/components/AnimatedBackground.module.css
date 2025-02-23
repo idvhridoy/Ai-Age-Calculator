@@ -1,0 +1,169 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.grid {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  transform: perspective(100vh) rotateX(60deg);
+  animation: rotate 60s linear infinite;
+}
+
+.gridLine {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(6, 182, 212, 0.3) 50%,
+    transparent
+  );
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.gridLine:nth-child(even) {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(99, 102, 241, 0.3) 50%,
+    transparent
+  );
+}
+
+.gridLine:nth-child(3n) {
+  animation-delay: -0.5s;
+}
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--glow);
+  animation: float var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 50%;
+  animation: expand 6s ease-in-out infinite;
+  animation-delay: calc(var(--index) * -2s);
+}
+
+.circle:nth-child(2) {
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.circle:nth-child(3) {
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.scanline {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(6, 182, 212, 0.1) 50%,
+    transparent
+  );
+  animation: scan 6s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: perspective(100vh) rotateX(60deg) translateY(0);
+  }
+  to {
+    transform: perspective(100vh) rotateX(60deg) translateY(100%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes expand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 200vh;
+    height: 200vh;
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Add glowing text effect to all text elements */
+:global(.glow-text) {
+  text-shadow: 0 0 10px var(--primary);
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--primary);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--secondary);
+  }
+}

@@ -169,7 +169,7 @@ export default function AgeCalculator() {
       <h1>Project FuturAge</h1>
       <div className={styles.mainContent}>
         <div className={styles.inputSection}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGrid}>
               <div className={styles.inputGroup}>
                 <label htmlFor="birthDate">Date of Birth:</label>
@@ -181,6 +181,7 @@ export default function AgeCalculator() {
                   onChange={handleInputChange}
                   required
                   className={styles.input}
+                  max={new Date().toISOString().split('T')[0]}
                 />
               </div>
 
@@ -194,6 +195,7 @@ export default function AgeCalculator() {
                   onChange={handleInputChange}
                   min="30"
                   max="200"
+                  step="0.1"
                   className={styles.input}
                 />
               </div>
@@ -208,38 +210,41 @@ export default function AgeCalculator() {
                   onChange={handleInputChange}
                   min="100"
                   max="250"
+                  step="0.1"
                   className={styles.input}
                 />
               </div>
 
               <div className={styles.inputGroup}>
                 <label htmlFor="exercise_frequency">Exercise (days/week):</label>
-                <select
+                <input
+                  type="range"
                   id="exercise_frequency"
                   name="exercise_frequency"
                   value={formData.exercise_frequency}
                   onChange={handleInputChange}
-                  className={styles.input}
-                >
-                  <option value="0">Sedentary</option>
-                  <option value="1">1-2 days</option>
-                  <option value="3">3-4 days</option>
-                  <option value="5">5+ days</option>
-                </select>
+                  min="0"
+                  max="7"
+                  step="1"
+                  className={styles.slider}
+                />
+                <span className={styles.sliderValue}>{formData.exercise_frequency} days/week</span>
               </div>
 
               <div className={styles.inputGroup}>
                 <label htmlFor="sleep_hours">Sleep (hours/day):</label>
                 <input
-                  type="number"
+                  type="range"
                   id="sleep_hours"
                   name="sleep_hours"
                   value={formData.sleep_hours}
                   onChange={handleInputChange}
                   min="4"
                   max="12"
-                  className={styles.input}
+                  step="0.5"
+                  className={styles.slider}
                 />
+                <span className={styles.sliderValue}>{formData.sleep_hours} hours</span>
               </div>
 
               <div className={styles.inputGroup}>
@@ -252,41 +257,42 @@ export default function AgeCalculator() {
                   onChange={handleInputChange}
                   min="1"
                   max="10"
+                  step="1"
                   className={styles.slider}
                 />
-                <span className={styles.sliderValue}>{formData.stress_level}</span>
+                <span className={styles.sliderValue}>{formData.stress_level}/10</span>
               </div>
 
               <div className={styles.inputGroup}>
                 <label htmlFor="diet_quality">Diet Quality (1-5):</label>
-                <select
+                <input
+                  type="range"
                   id="diet_quality"
                   name="diet_quality"
                   value={formData.diet_quality}
                   onChange={handleInputChange}
-                  className={styles.input}
-                >
-                  <option value="1">Poor</option>
-                  <option value="2">Fair</option>
-                  <option value="3">Good</option>
-                  <option value="4">Very Good</option>
-                  <option value="5">Excellent</option>
-                </select>
+                  min="1"
+                  max="5"
+                  step="1"
+                  className={styles.slider}
+                />
+                <span className={styles.sliderValue}>{formData.diet_quality}/5</span>
               </div>
 
               <div className={styles.inputGroup}>
                 <label htmlFor="mental_activity">Mental Activity:</label>
-                <select
+                <input
+                  type="range"
                   id="mental_activity"
                   name="mental_activity"
                   value={formData.mental_activity}
                   onChange={handleInputChange}
-                  className={styles.input}
-                >
-                  <option value="1">Low</option>
-                  <option value="3">Medium</option>
-                  <option value="5">High</option>
-                </select>
+                  min="1"
+                  max="10"
+                  step="1"
+                  className={styles.slider}
+                />
+                <span className={styles.sliderValue}>{formData.mental_activity}/10</span>
               </div>
 
               <div className={styles.inputGroup}>
@@ -304,35 +310,36 @@ export default function AgeCalculator() {
 
               <div className={styles.inputGroup}>
                 <label htmlFor="alcohol_frequency">Alcohol Consumption:</label>
-                <select
+                <input
+                  type="range"
                   id="alcohol_frequency"
                   name="alcohol_frequency"
                   value={formData.alcohol_frequency}
                   onChange={handleInputChange}
-                  className={styles.input}
-                >
-                  <option value="0">Never</option>
-                  <option value="1">Occasionally</option>
-                  <option value="2">Moderately</option>
-                  <option value="3">Frequently</option>
-                </select>
+                  min="0"
+                  max="7"
+                  step="1"
+                  className={styles.slider}
+                />
+                <span className={styles.sliderValue}>{formData.alcohol_frequency} days/week</span>
               </div>
             </div>
 
             <button type="submit" disabled={loading} className={styles.button}>
-              {loading ? 'Calculating...' : 'Calculate Age'}
+              {loading ? 'Calculating...' : 'Calculate Age Metrics'}
             </button>
           </form>
         </div>
 
-        <div className={styles.visualAnalysisSection}>
-          <h2>AI Visual Analysis</h2>
-          <VisualAgeAnalysis />
-        </div>
-
         {error && <div className={styles.error}>{error}</div>}
-        
-        {results && (
+
+        {loading && (
+          <div className={styles.loading}>
+            <div className={styles.loadingSpinner} />
+          </div>
+        )}
+
+        {results && !loading && (
           <div className={styles.resultsContainer}>
             <div className={styles.ageMetrics}>
               <h2>Age Analysis Results</h2>

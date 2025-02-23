@@ -161,21 +161,79 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
-    padding: 1rem;
-  }
-
-  .tabs {
-    flex-direction: column;
-    gap: 0.5rem;
+    padding: 1.5rem;
   }
 
   .visualizationContainer {
-    height: 400px;
+    height: 450px;
+  }
+
+  .insightsPanel {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    flex: 1 1 calc(50% - 0.5rem);
+    text-align: center;
+  }
+
+  .visualizationContainer {
+    height: 350px;
+  }
+
+  .tooltip,
+  .brainTooltip {
+    min-width: 180px;
+    padding: 0.75rem;
+  }
+
+  .insightCard {
+    padding: 0.75rem;
+  }
+
+  .insightCard p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .tab {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+  }
+
+  .visualizationContainer {
+    height: 300px;
+    margin-bottom: 1rem;
+  }
+
+  .insightsPanel h3 {
+    font-size: 1.1rem;
   }
 
   .aiInsights {
-    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }

@@ -199,7 +199,8 @@ interface AdvancedInsightsProps {
       environmental_impact: number;
       stress_resilience: number;
     };
-    ai_insights: string;
+    cognitive_insights: string[];
+    health_recommendations: string[];
   };
 }
 
@@ -306,7 +307,7 @@ const AdvancedInsights: React.FC<AdvancedInsightsProps> = ({ healthData }) => {
       <div className={styles.insightsPanel}>
         <h3>AI Health Insights</h3>
         <div className={styles.aiInsights}>
-          {healthData.ai_insights.split('\n').map((insight, index) => (
+          {[...(healthData.cognitive_insights || []), ...(healthData.health_recommendations || [])].map((insight, index) => (
             <div key={index} className={styles.insightCard}>
               <p>{insight}</p>
             </div>
